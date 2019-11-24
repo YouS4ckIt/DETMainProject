@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Unity.Jobs;
 
 /// <summary>
 /// Block object that represents all possible blocks.
@@ -120,23 +121,20 @@ public class Block
 	public bool BuildBlock(BlockType b)
 	{
         // If water or sand got placed, activate the drop and flow coroutines respectively.
-		if(b == BlockType.WATER)
-		{
-			owner.mb.StartCoroutine(owner.mb.Flow(this, 
-										BlockType.WATER, 
-										blockHealthMax[(int)BlockType.WATER],15));
-		}
-		else if(b == BlockType.SAND)
-		{
-			owner.mb.StartCoroutine(owner.mb.Drop(this, 
-										BlockType.SAND, 
-										20));
-		}
-		else
-		{
-			SetType(b);
-			owner.Redraw();
-		}
+		
+            //owner.mb.StartCoroutine(owner.mb.Flow(this, 
+            //							BlockType.WATER, 
+            //							blockHealthMax[(int)BlockType.WATER],15));
+            BuildBlockJob buildBlockJob = new BuildBlockJob
+            {
+                blockType = b,
+                owner = this.owner,
+                blockHealthMax = blockHealthMax[(int)BlockType.WATER],
+                block = this
+            };
+
+            JobHandle jobHandle = buildBlockJob.Schedule();
+            jobHandle.Complete();
 		return true;
 	}
 
