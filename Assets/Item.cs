@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Шеуь : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+public class Item : ScriptableObject{
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string ItemName;
+    public string desc;
+    public Sprite UIImage;
+
+    public int durability;
+    public int dmg;
+    public int test;
+
+
 }
