@@ -11,6 +11,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
     public class FirstPersonController : NetworkBehaviour
     {
         [SerializeField] private bool m_IsWalking;
+        [SerializeField] private bool m_IsMoving;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
         [SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
@@ -30,6 +31,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private GameObject PlayerCamera;
         [SerializeField] private Transform PlayerCameraTransform;
         [SerializeField] private GameObject UIObject;
+        [SerializeField] private Animator animationWalkRun;
+
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -85,6 +88,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
+           
+            if (m_IsMoving) { animationWalkRun.SetInteger("condition", 1); }
+            else{
+                animationWalkRun.SetInteger("condition", 0);
+            }
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
             {
@@ -92,10 +100,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 PlayLandingSound();
                 m_MoveDir.y = 0f;
                 m_Jumping = false;
+                animationWalkRun.SetInteger("condition", 0);
             }
             if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
             {
                 m_MoveDir.y = 0f;
+                animationWalkRun.SetInteger("condition", 0);
+            }
+            if (Input.GetKey(KeyCode.Mouse0)) {
+                animationWalkRun.SetInteger("condition", 2);
+            }
+            else
+            {
+                animationWalkRun.SetInteger("condition", 0);
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
@@ -131,9 +148,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (m_CharacterController.isGrounded)
             {
                 m_MoveDir.y = -m_StickToGroundForce;
+                animationWalkRun.SetInteger("condition", 0);
 
                 if (m_Jump)
                 {
+                    animationWalkRun.SetInteger("condition", 0);
+
                     m_MoveDir.y = m_JumpSpeed;
                     PlayJumpSound();
                     m_Jump = false;
@@ -143,9 +163,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             else
             {
                 m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
+
             }
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
-
+    
             ProgressStepCycle(speed);
             UpdateCameraPosition(speed);
 
@@ -181,6 +202,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayFootStepAudio()
         {
+
             if (!m_CharacterController.isGrounded)
             {
                 return;
@@ -226,7 +248,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // Read input
             float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");
-
+            if(horizontal!=0f || vertical!=0f) { m_IsMoving = true; } else { m_IsMoving = false; }
             bool waswalking = m_IsWalking;
 
 #if !MOBILE_INPUT
@@ -249,6 +271,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
             {
                 StopAllCoroutines();
+
                 StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
             }
         }
