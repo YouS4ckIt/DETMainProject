@@ -107,13 +107,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_MoveDir.y = 0f;
                 animationWalkRun.SetInteger("condition", 0);
             }
-            if (Input.GetKey(KeyCode.Mouse0)) {
+            if (Input.GetKeyDown(KeyCode.Mouse0)) {
                 animationWalkRun.SetInteger("condition", 2);
+                animationWalkRun.SetTrigger("characterAttack");
             }
-            else
-            {
-                animationWalkRun.SetInteger("condition", 0);
-            }
+            
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
         }

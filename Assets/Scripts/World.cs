@@ -9,6 +9,8 @@ public class World : MonoBehaviour {
 	public static int chunkSize = 16;
 	public static int worldSize = 2;
 	public static Dictionary<string, Chunk> chunks;
+    bool firstbuild = true;
+    bool building = false;
 
 	public static string BuildChunkName(Vector3 v)
 	{
@@ -39,6 +41,7 @@ public class World : MonoBehaviour {
 
 	IEnumerator BuildWorld()
 	{
+        building = true;
 		for(int z = 0; z < worldSize; z++)
 			for(int x = 0; x < worldSize; x++)
 				for(int y = 0; y < columnHeight; y++)

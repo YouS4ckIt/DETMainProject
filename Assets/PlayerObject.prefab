@@ -2872,6 +2872,7 @@ GameObject:
   - component: {fileID: 5049411492976284603}
   - component: {fileID: 5244205620083568147}
   - component: {fileID: -5243451418739647269}
+  - component: {fileID: 24959350344138122}
   m_Layer: 2
   m_Name: PlayerObject
   m_TagString: Untagged
@@ -3043,6 +3044,7 @@ MonoBehaviour:
   PlayerCameraTransform: {fileID: 6694749090014601249}
   UIObject: {fileID: 8196347430205346856}
   animationWalkRun: {fileID: -5243451418739647269}
+  attack1: 100
 --- !u!54 &7343718427971548867
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3229,6 +3231,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &24959350344138122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7343718427974440355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db4656d1053664fe3b0824bf308aaf55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 6694749090014601248}
 --- !u!1 &8196347429809824932
 GameObject:
   m_ObjectHideFlags: 0
