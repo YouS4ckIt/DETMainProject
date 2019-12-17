@@ -54,6 +54,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 PlayerCamera.SetActive(false);
                 UIObject.SetActive(false);
+                animationWalkRun.enabled = false;
 
 
             }
@@ -61,6 +62,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 PlayerCamera.SetActive(true);
                 UIObject.SetActive(true);
+                animationWalkRun.enabled = true;
 
                 //Cursor.lockState = CursorLockMode.Locked;
             }

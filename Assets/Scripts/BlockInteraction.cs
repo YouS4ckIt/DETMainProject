@@ -54,7 +54,7 @@ public class BlockInteraction : MonoBehaviour
 
                 if (update)
                 {
-
+                    hitc.changed = true;
                     List<string> updates = new List<string>();
                     float thisChunkx = hitc.chunk.transform.position.x;
                     float thisChunky = hitc.chunk.transform.position.y;
