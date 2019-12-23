@@ -32,7 +32,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private Transform PlayerCameraTransform;
         [SerializeField] private GameObject UIObject;
         [SerializeField] private Animator animationWalkRun;
-
+        [SerializeField] private GameObject DebugUI;
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -46,7 +46,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
-
+        private bool DebugUIBool = false;
         // Use this for initialization
         private void Start()
         {
@@ -55,15 +55,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 PlayerCamera.SetActive(false);
                 UIObject.SetActive(false);
                 animationWalkRun.enabled = false;
-
+                
 
             }
             else
             {
+                DebugUIBool = false;
                 PlayerCamera.SetActive(true);
                 UIObject.SetActive(true);
                 animationWalkRun.enabled = true;
-
+                
                 //Cursor.lockState = CursorLockMode.Locked;
             }
              m_CharacterController = GetComponent<CharacterController>();
@@ -78,12 +79,35 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_MouseLook.Init(transform , PlayerCameraTransform);
 
         }
-
+        public void showDebugUI()
+        {
+            DebugUI.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = (true);
+        }
+        public void LeaveDebugUI()
+        {
+            DebugUI.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+   
+        }
 
         // Update is called once per frame
         private void Update()
         {
             if (!isLocalPlayer) { return; }
+
+            if(Input.GetKeyDown(KeyCode.LeftControl) && Input.GetKey(KeyCode.F)|| Input.GetKeyDown(KeyCode.F) && Input.GetKey(KeyCode.LeftControl) )
+            {
+                if (DebugUIBool)
+                {
+                    DebugUIBool = !DebugUIBool;
+                    Debug.Log("CONTROLL AND F WERE PPRESSED :D");
+                    showDebugUI();
+                }
+                else { LeaveDebugUI(); DebugUIBool = !DebugUIBool; }
+              //  Cursor.lockState = CursorLockMode.;
+            }
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
@@ -170,7 +194,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             ProgressStepCycle(speed);
             UpdateCameraPosition(speed);
 
-            m_MouseLook.UpdateCursorLock();
+           // m_MouseLook.UpdateCursorLock();
         }
 
 

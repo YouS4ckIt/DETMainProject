@@ -56,7 +56,7 @@ public class Chunk
             bd = new BlockData();
             bd = (BlockData)bf.Deserialize(file);
             file.Close();
-            //Debug.Log("Loading chunk from file: " + chunkFile);
+            Debug.Log("Loading chunk from file: " + chunkFile);
             return true;
         }
         return false;
@@ -75,7 +75,7 @@ public class Chunk
         bd = new BlockData(chunkData);
         bf.Serialize(file, bd);
         file.Close();
-        //Debug.Log("Saving chunk from file: " + chunkFile);
+        Debug.Log("Saving chunk from file: " + chunkFile);
     }
 
     void BuildChunk()

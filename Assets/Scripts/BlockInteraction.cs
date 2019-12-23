@@ -1,21 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class BlockInteraction : MonoBehaviour
+using UnityEngine.Networking;
+public class BlockInteraction : NetworkBehaviour
 {
 
     public GameObject cam;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
+
+    [ClientRpc]
+    void RpcHitBlock(Block t)
+    {
+        t.HitBlock();
+    }
     void Update()
     {
+        if (!isLocalPlayer) { return; }
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;
@@ -46,7 +47,13 @@ public class BlockInteraction : MonoBehaviour
 
                 bool update = false;
                 if (Input.GetMouseButtonDown(0))
+                {
                     update = hitc.chunkData[x, y, z].HitBlock();
+                    //Debug.Log("OUR TYPE IS : " + hitc.chunkData[x, y, z].GetType());
+                    RpcHitBlock(hitc.chunkData[x, y, z]);
+
+                    
+                }
                 else
                 {
                     update = hitc.chunkData[x, y, z].BuildBlock(Block.BlockType.STONE);
