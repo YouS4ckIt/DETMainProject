@@ -3,14 +3,15 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
-
+using UnityEngine.Networking;
 namespace UnityStandardAssets.Characters.FirstPerson
 {
     [RequireComponent(typeof (CharacterController))]
     [RequireComponent(typeof (AudioSource))]
-    public class FirstPersonController : MonoBehaviour
+    public class FirstPersonController : NetworkBehaviour
     {
         [SerializeField] private bool m_IsWalking;
+        [SerializeField] private bool m_IsMoving;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
         [SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
@@ -27,7 +28,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
-
+        [SerializeField] private GameObject PlayerCamera;
+        [SerializeField] private Transform PlayerCameraTransform;
+        [SerializeField] private GameObject UIObject;
+        [SerializeField] private Animator animationWalkRun;
+        [SerializeField] private GameObject DebugUI;
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -41,31 +46,78 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
-
+        private bool DebugUIBool = false;
         // Use this for initialization
         private void Start()
         {
-            m_CharacterController = GetComponent<CharacterController>();
-            m_Camera = Camera.main;
-            m_OriginalCameraPosition = m_Camera.transform.localPosition;
-            m_FovKick.Setup(m_Camera);
-            m_HeadBob.Setup(m_Camera, m_StepInterval);
+            if (!isLocalPlayer)
+            {
+                PlayerCamera.SetActive(false);
+                UIObject.SetActive(false);
+                animationWalkRun.enabled = false;
+                
+
+            }
+            else
+            {
+                DebugUIBool = false;
+                PlayerCamera.SetActive(true);
+                UIObject.SetActive(true);
+                animationWalkRun.enabled = true;
+                
+                //Cursor.lockState = CursorLockMode.Locked;
+            }
+             m_CharacterController = GetComponent<CharacterController>();
+             m_Camera = PlayerCamera.GetComponent<Camera>();
+             m_OriginalCameraPosition = PlayerCameraTransform.localPosition;
+             m_FovKick.Setup(m_Camera);
+   //         m_HeadBob.Setup(m_Camera, m_StepInterval);
             m_StepCycle = 0f;
             m_NextStep = m_StepCycle/2f;
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
-			m_MouseLook.Init(transform , m_Camera.transform);
-        }
+			m_MouseLook.Init(transform , PlayerCameraTransform);
 
+        }
+        public void showDebugUI()
+        {
+            DebugUI.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = (true);
+        }
+        public void LeaveDebugUI()
+        {
+            DebugUI.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+   
+        }
 
         // Update is called once per frame
         private void Update()
         {
+            if (!isLocalPlayer) { return; }
+
+            if(Input.GetKeyDown(KeyCode.LeftControl) && Input.GetKey(KeyCode.F)|| Input.GetKeyDown(KeyCode.F) && Input.GetKey(KeyCode.LeftControl) )
+            {
+                if (DebugUIBool)
+                {
+                    DebugUIBool = !DebugUIBool;
+                    Debug.Log("CONTROLL AND F WERE PPRESSED :D");
+                    showDebugUI();
+                }
+                else { LeaveDebugUI(); DebugUIBool = !DebugUIBool; }
+              //  Cursor.lockState = CursorLockMode.;
+            }
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+            }
+           
+            if (m_IsMoving) { animationWalkRun.SetInteger("condition", 1); }
+            else{
+                animationWalkRun.SetInteger("condition", 0);
             }
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
@@ -74,11 +126,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 PlayLandingSound();
                 m_MoveDir.y = 0f;
                 m_Jumping = false;
+                animationWalkRun.SetInteger("condition", 0);
             }
             if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
             {
                 m_MoveDir.y = 0f;
+                animationWalkRun.SetInteger("condition", 0);
             }
+            if (Input.GetKeyDown(KeyCode.Mouse0)) {
+                animationWalkRun.SetInteger("condition", 2);
+                animationWalkRun.SetTrigger("characterAttack");
+            }
+            
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
         }
@@ -94,6 +153,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
+            if (!isLocalPlayer) { return; }
             float speed;
             GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at
@@ -112,9 +172,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (m_CharacterController.isGrounded)
             {
                 m_MoveDir.y = -m_StickToGroundForce;
+                animationWalkRun.SetInteger("condition", 0);
 
                 if (m_Jump)
                 {
+                    animationWalkRun.SetInteger("condition", 0);
+
                     m_MoveDir.y = m_JumpSpeed;
                     PlayJumpSound();
                     m_Jump = false;
@@ -124,13 +187,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             else
             {
                 m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
+
             }
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
-
+    
             ProgressStepCycle(speed);
             UpdateCameraPosition(speed);
 
-            m_MouseLook.UpdateCursorLock();
+           // m_MouseLook.UpdateCursorLock();
         }
 
 
@@ -162,6 +226,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayFootStepAudio()
         {
+
             if (!m_CharacterController.isGrounded)
             {
                 return;
@@ -179,6 +244,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void UpdateCameraPosition(float speed)
         {
+            return;
             Vector3 newCameraPosition;
             if (!m_UseHeadBob)
             {
@@ -186,18 +252,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             if (m_CharacterController.velocity.magnitude > 0 && m_CharacterController.isGrounded)
             {
-                m_Camera.transform.localPosition =
+                PlayerCameraTransform.localPosition =
                     m_HeadBob.DoHeadBob(m_CharacterController.velocity.magnitude +
                                       (speed*(m_IsWalking ? 1f : m_RunstepLenghten)));
-                newCameraPosition = m_Camera.transform.localPosition;
-                newCameraPosition.y = m_Camera.transform.localPosition.y - m_JumpBob.Offset();
+                newCameraPosition = PlayerCameraTransform.localPosition;
+                newCameraPosition.y = PlayerCameraTransform.localPosition.y - m_JumpBob.Offset();
             }
             else
             {
-                newCameraPosition = m_Camera.transform.localPosition;
+                newCameraPosition = PlayerCameraTransform.localPosition;
                 newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset();
             }
-            m_Camera.transform.localPosition = newCameraPosition;
+            PlayerCameraTransform.localPosition = newCameraPosition;
         }
 
 
@@ -206,7 +272,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // Read input
             float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");
-
+            if(horizontal!=0f || vertical!=0f) { m_IsMoving = true; } else { m_IsMoving = false; }
             bool waswalking = m_IsWalking;
 
 #if !MOBILE_INPUT
@@ -229,6 +295,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
             {
                 StopAllCoroutines();
+
                 StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
             }
         }
@@ -236,7 +303,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
-            m_MouseLook.LookRotation (transform, m_Camera.transform);
+            m_MouseLook.LookRotation (transform, PlayerCameraTransform);
         }
 
 
