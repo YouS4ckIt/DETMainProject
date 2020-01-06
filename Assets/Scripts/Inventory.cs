@@ -2,21 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Scripts{ 
 public class Inventory : MonoBehaviour
 {
   
   
   public bool inventoryEnabled;
-  public GameObject Inventory;
+  public GameObject inventory;
   
   private int allSlots;
   private int enabledSlots;
   private GameObject[] slot;
   public GameObject slotHolder;
-  
+
+  public bool getInventoryEnabled()
+    {
+        return inventoryEnabled;
+    }
   
   void Start(){
-	allSlots = 26;
+	allSlots = 35;
 	slot = new GameObject[allSlots];
 	for(int i = 0;i< allSlots;i++){
 		slot[i] = slotHolder.transform.GetChild(i).gameObject;
@@ -31,10 +36,15 @@ public class Inventory : MonoBehaviour
 	}
 	
 	if(inventoryEnabled){
-		Inventory.SetActive(true);
-	}else{
-		Inventory.SetActive(false);
+            inventory.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+        }
+        else{
+            inventory.SetActive(false);
 	}
   }
   
+}
 }
