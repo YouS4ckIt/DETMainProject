@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Scripts{ 
 public class Inventory : MonoBehaviour
 {
-  
+
   
   public bool inventoryEnabled;
   public GameObject inventory;
