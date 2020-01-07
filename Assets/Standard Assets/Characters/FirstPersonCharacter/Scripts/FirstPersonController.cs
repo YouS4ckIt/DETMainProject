@@ -47,6 +47,32 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
         private bool DebugUIBool = false;
+        public GameObject creativeInventoryWindow;
+        public GameObject cursorSlot;
+        private bool _inUI = false;
+        public bool inUI
+        {
+            get { return _inUI; }
+            set 
+            { 
+                _inUI = value;
+                if (_inUI)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    creativeInventoryWindow.SetActive(true);
+                    cursorSlot.SetActive(true);
+                    Cursor.visible = (true);
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    creativeInventoryWindow.SetActive(false);
+                    cursorSlot.SetActive(false);
+                    Cursor.visible = (false);
+                }                   
+            }
+        }
+
         // Use this for initialization
         private void Start()
         {
@@ -97,49 +123,59 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             if (!isLocalPlayer) { return; }
 
-            if(Input.GetKeyDown(KeyCode.LeftControl) && Input.GetKey(KeyCode.F)|| Input.GetKeyDown(KeyCode.F) && Input.GetKey(KeyCode.LeftControl) )
+            if (Input.GetKeyDown(KeyCode.I))
             {
-                if (DebugUIBool)
+                inUI = !inUI;
+            }
+
+            if (!inUI)
+            {
+                if (Input.GetKeyDown(KeyCode.LeftControl) && Input.GetKey(KeyCode.F) || Input.GetKeyDown(KeyCode.F) && Input.GetKey(KeyCode.LeftControl))
                 {
-                    DebugUIBool = !DebugUIBool;
-                    Debug.Log("CONTROLL AND F WERE PPRESSED :D");
-                    showDebugUI();
+                    if (DebugUIBool)
+                    {
+                        DebugUIBool = !DebugUIBool;
+                        Debug.Log("CONTROLL AND F WERE PPRESSED :D");
+                        showDebugUI();
+                    }
+                    else { LeaveDebugUI(); DebugUIBool = !DebugUIBool; }
+                    //  Cursor.lockState = CursorLockMode.;
                 }
-                else { LeaveDebugUI(); DebugUIBool = !DebugUIBool; }
-              //  Cursor.lockState = CursorLockMode.;
-            }
-            RotateView();
-            // the jump state needs to read here to make sure it is not missed
-            if (!m_Jump)
-            {
-                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-            }
-           
-            if (m_IsMoving) { animationWalkRun.SetInteger("condition", 1); }
-            else{
-                animationWalkRun.SetInteger("condition", 0);
-            }
+                RotateView();
+                // the jump state needs to read here to make sure it is not missed
+                if (!m_Jump)
+                {
+                    m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+                }
 
-            if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
-            {
-                StartCoroutine(m_JumpBob.DoBobCycle());
-                PlayLandingSound();
-                m_MoveDir.y = 0f;
-                m_Jumping = false;
-                animationWalkRun.SetInteger("condition", 0);
-            }
-            if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
-            {
-                m_MoveDir.y = 0f;
-                animationWalkRun.SetInteger("condition", 0);
-            }
-            if (Input.GetKeyDown(KeyCode.Mouse0)) {
-                animationWalkRun.SetInteger("condition", 2);
-                animationWalkRun.SetTrigger("characterAttack");
-            }
-            
+                if (m_IsMoving) { animationWalkRun.SetInteger("condition", 1); }
+                else
+                {
+                    animationWalkRun.SetInteger("condition", 0);
+                }
 
-            m_PreviouslyGrounded = m_CharacterController.isGrounded;
+                if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
+                {
+                    StartCoroutine(m_JumpBob.DoBobCycle());
+                    PlayLandingSound();
+                    m_MoveDir.y = 0f;
+                    m_Jumping = false;
+                    animationWalkRun.SetInteger("condition", 0);
+                }
+                if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
+                {
+                    m_MoveDir.y = 0f;
+                    animationWalkRun.SetInteger("condition", 0);
+                }
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    animationWalkRun.SetInteger("condition", 2);
+                    animationWalkRun.SetTrigger("characterAttack");
+                }
+
+
+                m_PreviouslyGrounded = m_CharacterController.isGrounded; 
+            }
         }
 
 
@@ -154,47 +190,50 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void FixedUpdate()
         {
             if (!isLocalPlayer) { return; }
-            float speed;
-            GetInput(out speed);
-            // always move along the camera forward as it is the direction that it being aimed at
-            Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
-
-            // get a normal for the surface that is being touched to move along it
-            RaycastHit hitInfo;
-            Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
-                               m_CharacterController.height/2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
-            desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
-
-            m_MoveDir.x = desiredMove.x*speed;
-            m_MoveDir.z = desiredMove.z*speed;
-
-
-            if (m_CharacterController.isGrounded)
+            if (!inUI)
             {
-                m_MoveDir.y = -m_StickToGroundForce;
-                animationWalkRun.SetInteger("condition", 0);
+                float speed;
+                GetInput(out speed);
+                // always move along the camera forward as it is the direction that it being aimed at
+                Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
 
-                if (m_Jump)
+                // get a normal for the surface that is being touched to move along it
+                RaycastHit hitInfo;
+                Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
+                                   m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+                desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
+
+                m_MoveDir.x = desiredMove.x * speed;
+                m_MoveDir.z = desiredMove.z * speed;
+
+
+                if (m_CharacterController.isGrounded)
                 {
+                    m_MoveDir.y = -m_StickToGroundForce;
                     animationWalkRun.SetInteger("condition", 0);
 
-                    m_MoveDir.y = m_JumpSpeed;
-                    PlayJumpSound();
-                    m_Jump = false;
-                    m_Jumping = true;
+                    if (m_Jump)
+                    {
+                        animationWalkRun.SetInteger("condition", 0);
+
+                        m_MoveDir.y = m_JumpSpeed;
+                        PlayJumpSound();
+                        m_Jump = false;
+                        m_Jumping = true;
+                    }
                 }
-            }
-            else
-            {
-                m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
+                else
+                {
+                    m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
 
-            }
-            m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
-    
-            ProgressStepCycle(speed);
-            UpdateCameraPosition(speed);
+                }
+                m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
 
-           // m_MouseLook.UpdateCursorLock();
+                ProgressStepCycle(speed);
+                UpdateCameraPosition(speed);
+
+                // m_MouseLook.UpdateCursorLock(); 
+            }
         }
 
 

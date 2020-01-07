@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using static Block;
+using UnityStandardAssets.Characters.FirstPerson;
+
 public class BlockInteraction : NetworkBehaviour
 {
 
     public GameObject cam;
+    //public BlockType selectedBlockType;
+    public Toolbar toolbar;
+    public FirstPersonController fpsController;
 
     // Update is called once per frame
 
@@ -17,6 +23,8 @@ public class BlockInteraction : NetworkBehaviour
     void Update()
     {
         if (!isLocalPlayer) { return; }
+        if (fpsController.inUI)
+            return;
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;
@@ -56,7 +64,12 @@ public class BlockInteraction : NetworkBehaviour
                 }
                 else
                 {
-                    update = hitc.chunkData[x, y, z].BuildBlock(Block.BlockType.STONE);
+                    if (toolbar.slots[toolbar.slotIndex].HasItem)
+                    {
+                        update = hitc.chunkData[x, y, z].BuildBlock(toolbar.slots[toolbar.slotIndex].itemSlot.stack.item.blockType);
+                        toolbar.slots[toolbar.slotIndex].itemSlot.Take(1);
+                    }
+                    
                 }
 
                 if (update)
