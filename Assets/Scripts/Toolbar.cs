@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson;
 using static Block;
 
 public class Toolbar : MonoBehaviour
@@ -10,8 +11,10 @@ public class Toolbar : MonoBehaviour
     public BlockInteraction blockInteraction;
     public Item[] items;
     public UIItemSlot[] slots;
-
+    public FirstPersonController fpsController;
+    public GameObject handLink;
     public int slotIndex = 0;
+    private GameObject prefab;
 
     private void Start()
     {
@@ -54,6 +57,10 @@ public class Toolbar : MonoBehaviour
 
             //blockInteraction.selectedBlockType = slots[slotIndex].itemSlot.stack.item.blockType;
             highlight.position = slots[slotIndex].slotIcon.transform.position;
+            Destroy(prefab);
+            prefab = Instantiate(slots[slotIndex].itemSlot.stack.item.prefab);
+            prefab.transform.parent = handLink.transform;
+            prefab.transform.localPosition = Vector3.zero;
         }
     }
 }

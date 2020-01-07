@@ -49,6 +49,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool DebugUIBool = false;
         public GameObject creativeInventoryWindow;
         public GameObject cursorSlot;
+        public GameObject prefab;
         private bool _inUI = false;
         public bool inUI
         {

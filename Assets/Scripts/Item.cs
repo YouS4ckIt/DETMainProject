@@ -10,6 +10,7 @@ public class Item : ScriptableObject{
     public BlockType blockType;
     public bool IsBlock;
     public Sprite UIImage;
+    public GameObject prefab;
 
     public int durability;
     public int dmg;
