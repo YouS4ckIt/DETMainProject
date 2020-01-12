@@ -15,9 +15,11 @@ public class MouseLook : MonoBehaviour
     private bool m_cursorIsLocked = true;
     public Transform playerBody;
     float xRotation = 0f;
+    private bool isCameraLocked;
 
     private void Start()
     {
+        isCameraLocked = true;
         Cursor.lockState = CursorLockMode.Locked;
     }
     private void Update()
@@ -27,19 +29,35 @@ public class MouseLook : MonoBehaviour
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        if (isCameraLocked)
+        {
+            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            playerBody.Rotate(Vector3.up * mouseX);
+        }
+        UpdateCursorLock();
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * mouseX);
+
     }
 
-    public void SetCursorLock(bool value)
+    public void SetCursorLock()
     {
-        lockCursor = value;
+        Debug.Log("SetCursorLock was called");
+        lockCursor = !lockCursor;
         if (!lockCursor)
         {//we force unlock the cursor if the user disable the cursor locking helper
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            isCameraLocked = false;
+            Debug.Log("removed Cursorlock");
         }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            isCameraLocked = true;
+            Debug.Log("Added CursorLock");
+        }
+
     }
 
     public void UpdateCursorLock()
