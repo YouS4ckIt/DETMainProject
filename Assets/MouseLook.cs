@@ -26,7 +26,7 @@ public class MouseLook : MonoBehaviour
     {
         float mouseX = Input.GetAxis("Mouse X") * XSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * YSensitivity * Time.deltaTime;
-
+    
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         if (isCameraLocked)
