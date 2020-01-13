@@ -646,7 +646,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4639964900637363095}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mixamorig:Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -678,7 +678,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4640068266935970819}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mixamorig:Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -774,7 +774,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4646522587644167987}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mixamorig:HeadTop_End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -987,6 +987,8 @@ MonoBehaviour:
   jumpForce: 1
   PV: {fileID: 0}
   FPSplayerCam: {fileID: 9021694645038160310}
+  ThirdpersonplayerCam: {fileID: 8671837958395627602}
+  FPSCameraObject: {fileID: 9021694645038160311}
 --- !u!114 &4642870484808923458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1637,7 +1639,7 @@ GameObject:
   - component: {fileID: 8766258496796970910}
   - component: {fileID: 8733292107184429870}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: ThirdpersonCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1729,6 +1731,8 @@ MonoBehaviour:
   turnSpeed: 7
   tiltMax: 75
   tiltMin: 45
+  pivot: {fileID: 8647432386980871190}
+  mainCamera: {fileID: 8647306631424499418}
 --- !u!114 &8757320962584039250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1742,7 +1746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clipMoveTime: 0.05
-  returnTime: 0.5
+  returnTime: 0.05
   sphereCastRadius: 0.1
   visualiseInEditor: 1
   closestDistance: 0.5
@@ -1763,7 +1767,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9021694645038160311}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 72083209}
@@ -1797,7 +1801,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9021694645038160311}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -1821,7 +1825,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1591
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
