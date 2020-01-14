@@ -4,12 +4,12 @@ using UnityEngine;
 public class Toolbar : MonoBehaviour
 {
     public RectTransform highlight;
-    public BlockInteraction blockInteraction;
+    //public BlockInteraction blockInteraction;
     public Item[] items;
     public UIItemSlot[] slots;
-    public GameObject handLink;
+    //public GameObject handLink;
     public int slotIndex = 0;
-    private GameObject prefab;
+    //private GameObject prefab;
 
     private void Start()
     {
@@ -52,10 +52,10 @@ public class Toolbar : MonoBehaviour
 
             //blockInteraction.selectedBlockType = slots[slotIndex].itemSlot.stack.item.blockType;
             highlight.position = slots[slotIndex].slotIcon.transform.position;
-            Destroy(prefab);
-            prefab = Instantiate(slots[slotIndex].itemSlot.stack.item.prefab);
-            prefab.transform.parent = handLink.transform;
-            prefab.transform.localPosition = Vector3.zero;
+            //Destroy(prefab);
+            //prefab = Instantiate(slots[slotIndex].itemSlot.stack.item.prefab);
+            //prefab.transform.parent = handLink.transform;
+            //prefab.transform.localPosition = Vector3.zero;
         }
     }
 }
