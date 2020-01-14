@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityStandardAssets.Characters.FirstPerson;
+
 
 public class DragAndDropHandler : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class DragAndDropHandler : MonoBehaviour
     [SerializeField]
     private EventSystem m_EventSystem = null;
 
-    //public FirstPersonController fpsController;
+    public PlayerControll playerController;
 
     private void Start()
     {
@@ -25,8 +25,8 @@ public class DragAndDropHandler : MonoBehaviour
 
     private void Update()
     {
-        //if (!fpsController.inUI)
-        //    return;
+        if (!playerController.inUI)
+            return;
 
         cursorSlot.transform.position = Input.mousePosition;
             

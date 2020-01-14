@@ -15,8 +15,8 @@ public class Toolbar : MonoBehaviour
     {
         foreach(UIItemSlot s in slots)
         {
-            ItemStack stack = new ItemStack(items[Random.Range(0,3)], 2);
-            ItemSlot slot = new ItemSlot(s, stack);
+            //ItemStack stack = new ItemStack(items[Random.Range(0,3)], 2);
+            //ItemSlot slot = new ItemSlot(s, stack);
         }
     }
 
@@ -36,26 +36,49 @@ public class Toolbar : MonoBehaviour
 
     private void Update()
     {
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
 
-        if (scroll != 0)
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if (scroll > 0)
-                slotIndex--;
-            else
-                slotIndex++;
+            slotIndex = 0;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            slotIndex = 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            slotIndex = 2;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            slotIndex = 3;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            slotIndex = 4;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            slotIndex = 5;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            slotIndex = 6;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            slotIndex = 7;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            slotIndex = 8;
+        }
 
-            if (slotIndex > slots.Length - 1)
-                slotIndex = 0;
-            if (slotIndex < 0)
-                slotIndex = slots.Length - 1;
-
-            //blockInteraction.selectedBlockType = slots[slotIndex].itemSlot.stack.item.blockType;
-            highlight.position = slots[slotIndex].slotIcon.transform.position;
+        //blockInteraction.selectedBlockType = slots[slotIndex].itemSlot.stack.item.blockType;
+        highlight.position = slots[slotIndex].slotIcon.transform.position;
             //Destroy(prefab);
             //prefab = Instantiate(slots[slotIndex].itemSlot.stack.item.prefab);
             //prefab.transform.parent = handLink.transform;
             //prefab.transform.localPosition = Vector3.zero;
-        }
     }
 }

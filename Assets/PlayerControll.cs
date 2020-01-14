@@ -30,7 +30,38 @@ using Photon.Pun;
     [SerializeField] GameObject FPSCameraObject;
         Vector3 jumpVelocity = Vector3.zero;
         Vector3 moveInCameraSpace;
-        void Start()
+
+    public GameObject creativeInventoryWindow;
+    public GameObject cursorSlot;
+    public GameObject prefab;
+    private bool _inUI = false;
+    public bool inUI
+    {
+        get { return _inUI; }
+        set
+        {
+            _inUI = value;
+            if (_inUI)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                creativeInventoryWindow.SetActive(true);
+                cursorSlot.SetActive(true);
+                Cursor.visible = (true);
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                creativeInventoryWindow.SetActive(false);
+                cursorSlot.SetActive(false);
+                Cursor.visible = (false);
+            }
+        }
+    }
+
+
+
+
+    void Start()
         {
             PV = GetComponent<PhotonView>();
             //if (!PV.IsMine)
@@ -46,40 +77,49 @@ using Photon.Pun;
             controller = GetComponent<CharacterController>();
         }
 
-        void Update()
-        {
+    void Update()
+    {
 
         //if (!PV.IsMine) { return; }
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.I))
         {
-
-            thirdpersonCameraIsActive = !thirdpersonCameraIsActive;
-            Debug.Log("Thirdpersoncamera : " + thirdpersonCameraIsActive);
-            FPSplayerCam.enabled = !FPSplayerCam.enabled;
-            FPSCameraObject.SetActive(FPSplayerCam.enabled);
-            Debug.Log("FPSCAMENABLED : " + FPSplayerCam.enabled);
-            ThirdpersonplayerCam.enabled = !ThirdpersonplayerCam.enabled;
-
+            inUI = !inUI;
         }
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+
+
+        if (!inUI)
+        {
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+
+                thirdpersonCameraIsActive = !thirdpersonCameraIsActive;
+                Debug.Log("Thirdpersoncamera : " + thirdpersonCameraIsActive);
+                FPSplayerCam.enabled = !FPSplayerCam.enabled;
+                FPSCameraObject.SetActive(FPSplayerCam.enabled);
+                Debug.Log("FPSCAMENABLED : " + FPSplayerCam.enabled);
+                ThirdpersonplayerCam.enabled = !ThirdpersonplayerCam.enabled;
+
+            }
+            float x = Input.GetAxis("Horizontal");
+            float y = Input.GetAxis("Vertical");
 
             // Movement
             Vector3 movement = new Vector3(
-                x ,
+                x,
                 0f,
-                y 
+                y
             ).normalized;
 
-        // Convert input movement to camera space
-        if (thirdpersonCameraIsActive) {
-            moveInCameraSpace = cameraTransform.TransformDirection(movement * movementSpeed * Time.deltaTime);
-            transform.rotation = cameraTransform.rotation;
-        }
-        else
-        {
-            moveInCameraSpace = movementSpeed * transform.right * x * Time.deltaTime + movementSpeed * transform.forward * y * Time.deltaTime;
-        }
+            // Convert input movement to camera space
+            if (thirdpersonCameraIsActive)
+            {
+                moveInCameraSpace = cameraTransform.TransformDirection(movement * movementSpeed * Time.deltaTime);
+                transform.rotation = cameraTransform.rotation;
+            }
+            else
+            {
+                moveInCameraSpace = movementSpeed * transform.right * x * Time.deltaTime + movementSpeed * transform.forward * y * Time.deltaTime;
+            }
             // Jump
             if (controller.isGrounded)
             {
@@ -95,18 +135,8 @@ using Photon.Pun;
             }
             else
             {
-            isGrounded = false;
-                animator.SetBool(animIsJumping, !isGrounded);
-
-                // If it is falling
-                if (jumpVelocity.y < 0)
-                {
-                    jumpVelocity.y -= gravity * Time.deltaTime * fallCoef;
-                }
-                else
-                {
-                    jumpVelocity.y -= gravity * Time.deltaTime;
-                }
+                isGrounded = false;
+                calcVelocity();
             }
 
             controller.Move(jumpVelocity + moveInCameraSpace);
@@ -115,4 +145,33 @@ using Photon.Pun;
             animator.SetFloat(animSpeedX, x);
             animator.SetFloat(animSpeedY, y);
         }
+        else
+        {
+            if (!controller.isGrounded)
+            {
+                isGrounded = false;
+                calcVelocity();
+            }
+            moveInCameraSpace = new Vector3(0f, 0f, 0f);
+            animator.SetBool(animIsJumping, false);
+            animator.SetFloat(animSpeedX, 0f);
+            animator.SetFloat(animSpeedY, 0f);
+            controller.Move(jumpVelocity + moveInCameraSpace);
+        }
+}
+    void calcVelocity()
+    {
+        animator.SetBool(animIsJumping, !isGrounded);
+
+        // If it is falling
+        if (jumpVelocity.y < 0)
+        {
+            jumpVelocity.y -= gravity * Time.deltaTime * fallCoef;
+        }
+        else
+        {
+            jumpVelocity.y -= gravity * Time.deltaTime;
+        }
     }
+    
+}
