@@ -3,27 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
+
 public class ClickSound : MonoBehaviour
 {
+    public AudioSource buttonSource;
     public AudioClip clicksound;
+    public AudioClip hoversound;
 
 
-    private Button button { get { return GetComponent<Button>(); } }
-    private AudioSource source{ get { return GetComponent<AudioSource>(); } }
-
-    // Start is called before the first frame update
-    void Start()
+    public void hoversoundPlay()
     {
-        gameObject.AddComponent<AudioSource>();
-        source.clip = clicksound;
-        source.playOnAwake = false;
-        button.onClick.AddListener(() => PlaySound());
+        buttonSource.PlayOneShot(hoversound);
     }
-
-    void PlaySound()
+    public void clicksoundPlay()
     {
-        source.PlayOneShot(clicksound);
-
+        buttonSource.PlayOneShot(clicksound);
     }
 }

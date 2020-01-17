@@ -19,12 +19,10 @@ public class PhotonLobbby : MonoBehaviourPunCallbacks
     }
 
 
-    void Start()
+    public void StartMultiplayer()
     {
         PhotonNetwork.ConnectUsingSettings();
-
     }
-
 
     public override void OnConnectedToMaster()
     {
