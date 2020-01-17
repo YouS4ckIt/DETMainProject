@@ -10,7 +10,8 @@ public class ThirdPersonCamera : MonoBehaviour
 
     [SerializeField]
     Transform followTransform = null;
-
+    public float XSensitivity = 100f;
+    public float YSensitivity = 100f;
     [Range(0f, 10f)]
     [SerializeField]
     float turnSpeed = 1.5f;
@@ -52,6 +53,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void Update()
     {
+
         if (Cursor.lockState == CursorLockMode.Locked)
         {
             HandleRotationMovement();
@@ -66,13 +68,8 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void HandleRotationMovement()
     {
-        if (Time.timeScale < float.Epsilon)
-        {
-            return;
-        }
-
-        float x = Input.GetAxis("Mouse X");
-        float y = Input.GetAxis("Mouse Y");
+        float x = Input.GetAxis("Mouse X") * XSensitivity * Time.deltaTime;
+        float y = Input.GetAxis("Mouse Y") * YSensitivity * Time.deltaTime;
 
         // Adjust the look angle by an amount proportional to the turn speed and horizontal input.
         lookAngle += x * turnSpeed;

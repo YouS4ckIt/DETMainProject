@@ -27,7 +27,8 @@ using Photon.Pun;
         private PhotonView PV;
         [SerializeField] Camera FPSplayerCam;
         [SerializeField] Camera ThirdpersonplayerCam;
-    [SerializeField] GameObject FPSCameraObject;
+        [SerializeField] GameObject ThirdpersonplayerCamObject;
+        [SerializeField] GameObject FPSCameraObject;
         Vector3 jumpVelocity = Vector3.zero;
         Vector3 moveInCameraSpace;
 
@@ -63,12 +64,15 @@ using Photon.Pun;
 
     void Start()
         {
-            PV = GetComponent<PhotonView>();
-            //if (!PV.IsMine)
-            //{
-            //    FPSplayerCam.enabled = false;
-            //    return;
-            //}
+            PV = GetComponentInParent<PhotonView>();
+            if (!PV.IsMine)
+            {
+                ThirdpersonplayerCamObject.SetActive(false);
+                FPSCameraObject.SetActive(false);
+                FPSplayerCam.enabled = false;
+                ThirdpersonplayerCam.enabled = false;
+                return;
+            }
             animator = GetComponent<Animator>();
             animSpeedX = Animator.StringToHash("SpeedX");
             animSpeedY = Animator.StringToHash("SpeedY");
@@ -80,7 +84,7 @@ using Photon.Pun;
     void Update()
     {
 
-        //if (!PV.IsMine) { return; }
+        if (!PV.IsMine) { return; }
         if (Input.GetKeyDown(KeyCode.I))
         {
             inUI = !inUI;
@@ -114,7 +118,8 @@ using Photon.Pun;
             if (thirdpersonCameraIsActive)
             {
                 moveInCameraSpace = cameraTransform.TransformDirection(movement * movementSpeed * Time.deltaTime);
-                transform.rotation = cameraTransform.rotation;
+               // Debug.Log(cameraTransform.rotation + "      ROTATION : "); 
+               transform.rotation = cameraTransform.rotation;
             }
             else
             {
