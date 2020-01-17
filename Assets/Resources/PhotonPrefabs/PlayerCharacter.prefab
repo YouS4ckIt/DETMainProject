@@ -388,7 +388,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 563213016710008956}
-  m_LocalRotation: {x: 0.59303606, y: -0.067714594, z: -0.112598084, w: 0.79438317}
+  m_LocalRotation: {x: 0.59303606, y: -0.0677146, z: -0.112598084, w: 0.7943832}
   m_LocalPosition: {x: 8.881784e-18, y: 0.03418826, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -791,7 +791,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 563824671968043534}
-  m_LocalRotation: {x: 0.6349166, y: 0.05572533, z: 0.09652571, w: 0.7644988}
+  m_LocalRotation: {x: 0.6349166, y: 0.055725332, z: 0.09652571, w: 0.76449883}
   m_LocalPosition: {x: -1.7763568e-17, y: 0.034120176, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1311,16 +1311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 1
-    SynchronizeType: 1
-    Name: SpeedX
-  - Type: 1
-    SynchronizeType: 1
-    Name: SpeedY
-  - Type: 4
-    SynchronizeType: 1
-    Name: IsJumping
+  m_SynchronizeParameters: []
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
