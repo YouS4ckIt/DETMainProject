@@ -11,6 +11,7 @@ public class PhotonLobbby : MonoBehaviourPunCallbacks
 
     public GameObject startButton;
     public GameObject cancelButton;
+    public GameObject multiPlayerBtn;
 
 
     private void Awake()
@@ -21,7 +22,9 @@ public class PhotonLobbby : MonoBehaviourPunCallbacks
 
     public void StartMultiplayer()
     {
+
         PhotonNetwork.ConnectUsingSettings();
+        multiPlayerBtn.SetActive(false);
     }
 
     public override void OnConnectedToMaster()
