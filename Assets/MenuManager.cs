@@ -1,18 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] public GameObject LobbyController;
+    [SerializeField] public GameObject startButtonForShow;
+    public void btnPlayGame()
     {
-        
+        LobbyController.GetComponent<PhotonLobbby>().StartMultiplayer();
+        startButtonForShow.SetActive(true);
+    }
+    public void btnQuitGame()
+    {
+    #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+    #else
+          Application.Quit();
+    #endif
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
+
+
+
 }
