@@ -1240,7 +1240,6 @@ GameObject:
   m_Component:
   - component: {fileID: 438914897}
   - component: {fileID: 438914899}
-  - component: {fileID: 438914898}
   m_Layer: 5
   m_Name: CharacterSelectCamera
   m_TagString: Untagged
@@ -1267,14 +1266,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!81 &438914898
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 438914896}
-  m_Enabled: 0
 --- !u!20 &438914899
 Camera:
   m_ObjectHideFlags: 0
@@ -1519,7 +1510,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537578373}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 15bf17df3dd76884dad6071217f6f9cc, type: 3}
@@ -4042,7 +4033,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1782587511}
   - component: {fileID: 1782587513}
-  - component: {fileID: 1782587512}
   m_Layer: 0
   m_Name: UICamera
   m_TagString: Untagged
@@ -4064,14 +4054,6 @@ Transform:
   m_Father: {fileID: 746805114}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1782587512
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1782587510}
-  m_Enabled: 1
 --- !u!20 &1782587513
 Camera:
   m_ObjectHideFlags: 0
@@ -5192,7 +5174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 2090336888}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 0
   m_MovementType: 2
   m_Elasticity: 0.1
@@ -7677,6 +7659,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3137288945425119068}
+  - component: {fileID: 3142571598646073633}
   m_Layer: 0
   m_Name: PlayerGreen
   m_TagString: Untagged
@@ -7684,6 +7667,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &3142571598646073633
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3142571598646073632}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 2602ca5b39d50469b90119467db53d59, type: 3}
+  m_Controller: {fileID: 9100000, guid: 0e55a03f6ef6d4bf1b1b74a192b9e996, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3142571598809375270
 GameObject:
   m_ObjectHideFlags: 0
@@ -7693,6 +7695,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3137288944976563290}
+  - component: {fileID: 3142571598809375271}
   m_Layer: 0
   m_Name: PlayerBlue
   m_TagString: Untagged
@@ -7700,6 +7703,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &3142571598809375271
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3142571598809375270}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 2602ca5b39d50469b90119467db53d59, type: 3}
+  m_Controller: {fileID: 9100000, guid: 0e55a03f6ef6d4bf1b1b74a192b9e996, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3142571599461756333
 GameObject:
   m_ObjectHideFlags: 0
@@ -7709,6 +7731,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3137288944596747217}
+  - component: {fileID: 3142571599461756334}
   m_Layer: 0
   m_Name: PlayerRed
   m_TagString: Untagged
@@ -7716,6 +7739,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &3142571599461756334
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3142571599461756333}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 2602ca5b39d50469b90119467db53d59, type: 3}
+  m_Controller: {fileID: 9100000, guid: 0e55a03f6ef6d4bf1b1b74a192b9e996, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3142618514666260946
 GameObject:
   m_ObjectHideFlags: 0
