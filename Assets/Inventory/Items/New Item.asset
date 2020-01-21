@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f7a7150b9039a748bc7aac24e68d5d8, type: 3}
   m_Name: New Item
   m_EditorClassIdentifier: 
-  ItemName: 
+  ItemName: Grass
   blockType: 0
-  IsBlock: 0
+  IsBlock: 1
   UIImage: {fileID: 0}
   prefab: {fileID: 0}
   durability: 0

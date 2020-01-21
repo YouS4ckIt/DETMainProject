@@ -35,6 +35,7 @@ using Photon.Pun;
     public GameObject creativeInventoryWindow;
     public GameObject cursorSlot;
     public GameObject prefab;
+    public GameObject uiRawImage;
     private bool _inUI = false;
     public bool inUI
     {
@@ -48,6 +49,7 @@ using Photon.Pun;
                 creativeInventoryWindow.SetActive(true);
                 cursorSlot.SetActive(true);
                 Cursor.visible = (true);
+                uiRawImage.SetActive(true);
             }
             else
             {
@@ -55,6 +57,7 @@ using Photon.Pun;
                 creativeInventoryWindow.SetActive(false);
                 cursorSlot.SetActive(false);
                 Cursor.visible = (false);
+                uiRawImage.SetActive(false);
             }
         }
     }

@@ -7,10 +7,11 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] public GameObject LobbyController;
     [SerializeField] public GameObject startButtonForShow;
+    [SerializeField] public GameObject characterSelectObj;
     public void btnPlayGame()
     {
-        LobbyController.GetComponent<PhotonLobbby>().StartMultiplayer();
-        startButtonForShow.SetActive(true);
+        
+        characterSelectObj.SetActive(true);
     }
     public void btnQuitGame()
     {
@@ -19,6 +20,15 @@ public class MenuManager : MonoBehaviour
     #else
           Application.Quit();
     #endif
+    }
+
+    public void OnClickCharacterPick(int whichCharacter)
+    {
+        if (PlayerInfo.PI != null)
+        {
+            PlayerInfo.PI.selectedCharacter = whichCharacter;
+            PlayerPrefs.SetInt("MyCharacter", whichCharacter);
+        }
     }
 
 

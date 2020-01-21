@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2858066071298198834}
   - component: {fileID: 2858066071298198833}
   - component: {fileID: -8073788176945567237}
+  - component: {fileID: 1449876499286713352}
   m_Layer: 0
   m_Name: PhotonNetworkPlayer
   m_TagString: Untagged
@@ -61,9 +62,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2858066071298198846}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1f700ad4b88d5a4da3104104094d630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myAvatar: {fileID: 0}
+--- !u!114 &1449876499286713352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2858066071298198846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8484c8d8bd4371c4da36da3f80487da9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myCharacter: {fileID: 0}
+  characterValue: 0
