@@ -3656,9 +3656,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedCharacter: 0
   allCharacters:
-  - {fileID: 5169294010459662171, guid: 978e7873443b7c74fa805d05c69c1e2b, type: 3}
-  - {fileID: 5169294010459662171, guid: 6a5b39580a418f64da67b1f5cc0b28b7, type: 3}
-  - {fileID: 5169294010459662171, guid: 4271b30fc54c3c8439e11e52972146bb, type: 3}
+  - {fileID: 6356392894259429246, guid: cf299cd82d575714c84656773dd9980f, type: 3}
+  - {fileID: 6356392894259429246, guid: 18cbd8be2de604143b8f3e9762913e6f, type: 3}
+  - {fileID: 6356392894259429246, guid: cd26fa16ec2275645bc24edff97fb458, type: 3}
 --- !u!4 &1697738742
 Transform:
   m_ObjectHideFlags: 0

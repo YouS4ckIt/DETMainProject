@@ -13,10 +13,13 @@ public class Toolbar : MonoBehaviour
 
     private void Start()
     {
-        foreach(UIItemSlot s in slots)
+        Debug.Log(slots.Length + " DDDDD" );
+        //ItemStack stack = new ItemStack(items[0], 1);
+        //ItemSlot slot = new ItemSlot(slots[0], stack);
+        foreach (UIItemSlot s in slots)
         {
-            //ItemStack stack = new ItemStack(items[Random.Range(0,3)], 2);
-            //ItemSlot slot = new ItemSlot(s, stack);
+            ItemStack stack = new ItemStack(items[0], 1);
+            ItemSlot slot = new ItemSlot(s, stack);
         }
     }
 

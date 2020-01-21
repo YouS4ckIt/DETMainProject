@@ -10,11 +10,13 @@ public class CreativeInventory : MonoBehaviour
     List<ItemSlot> slots = new List<ItemSlot>();
     private void Start()
     {
-        for(int i = 1; i < 55; i++)
+        for(int i = 1; i < 7; i++)
         {
             GameObject newSlot = Instantiate(slotPrefab, transform);
+
             //ItemStack stack = new ItemStack(toolbar.items[0], 64);
-            ItemSlot slot = new ItemSlot(newSlot.GetComponent<UIItemSlot>());
+            ItemSlot slot = new ItemSlot(newSlot.GetComponent<UIItemSlot>(), null);
+
             //slot.isCreative = true;
         }
     }
