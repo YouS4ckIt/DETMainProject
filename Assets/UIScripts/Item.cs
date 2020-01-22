@@ -7,13 +7,16 @@ using static Block;
 public class Item : ScriptableObject{
 
     public string ItemName;
-    public BlockType blockType;
-    public bool IsBlock;
+    public ItemTypes itemType = ItemTypes.Block;
     public Sprite UIImage;
     public GameObject prefab;
+    public GameObject prefabAditional;
+    public BlockType blockType;
 
     public int durability;
     public int dmg;
 
 
 }
+
+public enum ItemTypes { Block, Weapon, HeadGear, BodyGear, LegGear, Any}

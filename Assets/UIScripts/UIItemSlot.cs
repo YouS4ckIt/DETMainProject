@@ -10,6 +10,7 @@ public class UIItemSlot : MonoBehaviour
     public Image slotImage;
     public Image slotIcon;
     public Text slotAmount;
+    public ItemTypes expectedItemType = ItemTypes.Any;
 
     public bool HasItem
     {

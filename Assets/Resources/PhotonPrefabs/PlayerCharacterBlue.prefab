@@ -292,6 +292,8 @@ MonoBehaviour:
   highlight: {fileID: 4488455338584520874}
   items:
   - {fileID: 11400000, guid: ad29cf037921aab4ca03e94b1b83f26e, type: 2}
+  - {fileID: 11400000, guid: f9fe01cdad507014bafacf9798cb0bab, type: 2}
+  - {fileID: 11400000, guid: 9aeb45fb9c650e447b1a9e34e43cec4b, type: 2}
   slots:
   - {fileID: 6356392893443840802}
   - {fileID: 6356392893443840805}
@@ -471,6 +473,9 @@ MonoBehaviour:
   - {fileID: 4572831760706242199}
   toolbar: {fileID: 8594677332090300677}
   headwear: {fileID: 7695628534484634312}
+  bodywear: {fileID: 6438555030566187299}
+  leftFootWear: {fileID: 8154513126658687735}
+  rightFootWear: {fileID: 4557509600187340116}
 --- !u!1 &870740051054691663
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,6 +641,7 @@ MonoBehaviour:
   slotImage: {fileID: 1064273825224354669}
   slotIcon: {fileID: 2071412663117293899}
   slotAmount: {fileID: 4599200611830640628}
+  expectedItemType: 5
 --- !u!1 &1124947078656459366
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,6 +933,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1752605501069474733}
+  - {fileID: 8840991010844187854}
   m_Father: {fileID: 1752620565149966253}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1823,6 +1830,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1752723316528564165}
+  - {fileID: 6937003433374695531}
   m_Father: {fileID: 1752875660359248105}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1946,6 +1954,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1752643705078360133}
+  - {fileID: 339133003278986355}
   m_Father: {fileID: 1751132773058936749}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2522,6 +2531,7 @@ MonoBehaviour:
   slotImage: {fileID: 4769760774903322088}
   slotIcon: {fileID: 5153281898094331645}
   slotAmount: {fileID: 7731299431329950094}
+  expectedItemType: 3
 --- !u!1 &2614919406473207809
 GameObject:
   m_ObjectHideFlags: 0
@@ -2787,6 +2797,7 @@ MonoBehaviour:
   slotImage: {fileID: 3129405552373792102}
   slotIcon: {fileID: 4113981589174337344}
   slotAmount: {fileID: 1908200456426699263}
+  expectedItemType: 5
 --- !u!1 &3403416556376247147
 GameObject:
   m_ObjectHideFlags: 0
@@ -3314,6 +3325,37 @@ MonoBehaviour:
   slotImage: {fileID: 4577256148970011799}
   slotIcon: {fileID: 4971856560163755979}
   slotAmount: {fileID: 8429546735037110594}
+  expectedItemType: 2
+--- !u!1 &4557509600187340116
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6937003433374695531}
+  m_Layer: 0
+  m_Name: rightFootWear
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6937003433374695531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4557509600187340116}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1751330775643724005}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4599200611830640626
 GameObject:
   m_ObjectHideFlags: 0
@@ -3560,6 +3602,7 @@ MonoBehaviour:
   slotImage: {fileID: 5066767894977656838}
   slotIcon: {fileID: 6064918501256821280}
   slotAmount: {fileID: 8594677332280474783}
+  expectedItemType: 5
 --- !u!1 &5140965044379547287
 GameObject:
   m_ObjectHideFlags: 0
@@ -3652,6 +3695,7 @@ MonoBehaviour:
   slotImage: {fileID: 5018556081719349603}
   slotIcon: {fileID: 6331871525622666053}
   slotAmount: {fileID: 8409300069136782842}
+  expectedItemType: 5
 --- !u!1 &5265779958270488802
 GameObject:
   m_ObjectHideFlags: 0
@@ -3744,6 +3788,7 @@ MonoBehaviour:
   slotImage: {fileID: 5471540034297796374}
   slotIcon: {fileID: 6455062460864025904}
   slotAmount: {fileID: 8860967895618081679}
+  expectedItemType: 5
 --- !u!1 &5328566075828904001
 GameObject:
   m_ObjectHideFlags: 0
@@ -3990,6 +4035,7 @@ MonoBehaviour:
   slotImage: {fileID: 5957047557400564499}
   slotIcon: {fileID: 4670657781011599669}
   slotAmount: {fileID: 7186905804881713034}
+  expectedItemType: 5
 --- !u!1 &5935455344080230184
 GameObject:
   m_ObjectHideFlags: 0
@@ -4364,6 +4410,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6438555030566187299
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 339133003278986355}
+  m_Layer: 0
+  m_Name: Bodywear
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &339133003278986355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6438555030566187299}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1752470723802664913}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6848392631336023808
 GameObject:
   m_ObjectHideFlags: 0
@@ -4456,6 +4532,7 @@ MonoBehaviour:
   slotImage: {fileID: 6771019664431304948}
   slotIcon: {fileID: 5732329378314490578}
   slotAmount: {fileID: 7845786719366288493}
+  expectedItemType: 5
 --- !u!1 &7186905804881713036
 GameObject:
   m_ObjectHideFlags: 0
@@ -4625,6 +4702,7 @@ MonoBehaviour:
   slotImage: {fileID: 0}
   slotIcon: {fileID: 8609348812851429966}
   slotAmount: {fileID: 6059042858164700401}
+  expectedItemType: 5
 --- !u!1 &7695628534484634312
 GameObject:
   m_ObjectHideFlags: 0
@@ -4732,6 +4810,36 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
+--- !u!1 &8154513126658687735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8840991010844187854}
+  m_Layer: 0
+  m_Name: leftFootWear
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8840991010844187854
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8154513126658687735}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1752761635817377837}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8310826888012182293
 GameObject:
   m_ObjectHideFlags: 0
@@ -4897,6 +5005,7 @@ MonoBehaviour:
   slotImage: {fileID: 8180101618198863159}
   slotIcon: {fileID: 7205656756409802513}
   slotAmount: {fileID: 4653103408478525870}
+  expectedItemType: 5
 --- !u!1 &8409300069136782844
 GameObject:
   m_ObjectHideFlags: 0
@@ -5411,6 +5520,7 @@ MonoBehaviour:
   slotImage: {fileID: 8506389215824087059}
   slotIcon: {fileID: 6195707284493432}
   slotAmount: {fileID: 6996100968131983367}
+  expectedItemType: 4
 --- !u!1 &9176631546519682496
 GameObject:
   m_ObjectHideFlags: 0
@@ -5503,3 +5613,4 @@ MonoBehaviour:
   slotImage: {fileID: 9053624584825313844}
   slotIcon: {fileID: 8061093856271521810}
   slotAmount: {fileID: 5526554897657585325}
+  expectedItemType: 5

@@ -52,7 +52,8 @@ public class DragAndDropHandler : MonoBehaviour
             cursorItemSlot.InsertStack(clickedSlot.itemSlot.TakeAll());
             return;
         }
-        if (cursorSlot.HasItem && !clickedSlot.HasItem)
+        if (cursorSlot.HasItem && !clickedSlot.HasItem  && 
+            (cursorSlot.itemSlot.stack.item.itemType == clickedSlot.expectedItemType || clickedSlot.expectedItemType == ItemTypes.Any))
         {
             clickedSlot.itemSlot.InsertStack(cursorItemSlot.TakeAll());
             return;

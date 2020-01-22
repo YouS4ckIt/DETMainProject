@@ -18,7 +18,7 @@ public class Toolbar : MonoBehaviour
         //ItemSlot slot = new ItemSlot(slots[0], stack);
         foreach (UIItemSlot s in slots)
         {
-            ItemStack stack = new ItemStack(items[0], 1);
+            ItemStack stack = new ItemStack(items[Random.Range(0, items.Length)], 1);
             ItemSlot slot = new ItemSlot(s, stack);
         }
     }
