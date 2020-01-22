@@ -33,6 +33,7 @@ using Photon.Pun;
         Vector3 moveInCameraSpace;
 
     public GameObject creativeInventoryWindow;
+    public GameObject wardrobeWindow;
     public GameObject cursorSlot;
     public GameObject prefab;
     public GameObject uiRawImage;
@@ -47,6 +48,7 @@ using Photon.Pun;
             {
                 Cursor.lockState = CursorLockMode.None;
                 creativeInventoryWindow.SetActive(true);
+                wardrobeWindow.SetActive(true);
                 cursorSlot.SetActive(true);
                 Cursor.visible = (true);
                 uiRawImage.SetActive(true);
@@ -55,6 +57,7 @@ using Photon.Pun;
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 creativeInventoryWindow.SetActive(false);
+                wardrobeWindow.SetActive(false);
                 cursorSlot.SetActive(false);
                 Cursor.visible = (false);
                 uiRawImage.SetActive(false);

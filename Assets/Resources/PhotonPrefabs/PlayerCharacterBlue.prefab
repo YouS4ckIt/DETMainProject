@@ -106,9 +106,9 @@ RectTransform:
   m_Children:
   - {fileID: 502481147248535878}
   - {fileID: 8594677331597640416}
+  - {fileID: 1856123026723371756}
   - {fileID: 3990752924666708735}
   - {fileID: 8129288076072567602}
-  - {fileID: 1856123026723371756}
   m_Father: {fileID: 1751319883988701957}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -387,6 +387,7 @@ GameObject:
   - component: {fileID: 1856123026723371756}
   - component: {fileID: 3222658426432712162}
   - component: {fileID: 4037819759712938458}
+  - component: {fileID: 2039234429053255217}
   m_Layer: 5
   m_Name: Wardrobe
   m_TagString: Untagged
@@ -409,13 +410,13 @@ RectTransform:
   - {fileID: 1943629880528882112}
   - {fileID: 4291753239171634611}
   m_Father: {fileID: 502481145511221711}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -109.98, y: 529.36}
-  m_SizeDelta: {x: 110, y: 110}
-  m_Pivot: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -183, y: 617.60004}
+  m_SizeDelta: {x: 108, y: 36}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &3222658426432712162
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -431,7 +432,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 802923595957743670}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -452,6 +453,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2039234429053255217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802923595957743670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29bd6f0686d9f0040afd056b10b8b4cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots:
+  - {fileID: 5131171004830712582}
+  - {fileID: 5614222113304135131}
+  - {fileID: 4572831760706242199}
+  toolbar: {fileID: 8594677332090300677}
+  headwear: {fileID: 7695628534484634312}
 --- !u!1 &870740051054691663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,6 +1019,7 @@ MonoBehaviour:
   ThirdpersonplayerCamObject: {fileID: 2315460393652062328}
   FPSCameraObject: {fileID: 2667554657157111281}
   creativeInventoryWindow: {fileID: 8594677331597640417}
+  wardrobeWindow: {fileID: 802923595957743670}
   cursorSlot: {fileID: 7493355100172707740}
   prefab: {fileID: 0}
   uiRawImage: {fileID: 3793507680468410011}
@@ -1770,7 +1790,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.13976192, z: 0.006443275}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 5872763853194814022}
   m_Father: {fileID: 1752643705078360133}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2446,8 +2467,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 53.85, y: 0}
-  m_SizeDelta: {x: 28.96, y: 110}
+  m_AnchoredPosition: {x: 36, y: 0}
+  m_SizeDelta: {x: 36, y: 36}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &7362293455744377472
 CanvasRenderer:
@@ -2518,7 +2539,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3687818240685666799
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2869,7 +2890,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 502481145511221711}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3238,8 +3259,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 1, y: -0}
-  m_SizeDelta: {x: 52.85, y: 110}
+  m_AnchoredPosition: {x: 0, y: -0}
+  m_SizeDelta: {x: 36, y: 36}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &5780450917499766178
 CanvasRenderer:
@@ -3740,7 +3761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5263792766505005715
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4545,7 +4566,7 @@ RectTransform:
   - {fileID: 5171470939472167719}
   - {fileID: 6059042858164700406}
   m_Father: {fileID: 502481145511221711}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4604,6 +4625,36 @@ MonoBehaviour:
   slotImage: {fileID: 0}
   slotIcon: {fileID: 8609348812851429966}
   slotAmount: {fileID: 6059042858164700401}
+--- !u!1 &7695628534484634312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5872763853194814022}
+  m_Layer: 0
+  m_Name: Headwear
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5872763853194814022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7695628534484634312}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1751251560737719157}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7845786719366288491
 GameObject:
   m_ObjectHideFlags: 0
@@ -4940,7 +4991,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6726161304608148414
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5305,8 +5356,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 82.81, y: 0}
-  m_SizeDelta: {x: 26.79, y: 110}
+  m_AnchoredPosition: {x: 72, y: 0}
+  m_SizeDelta: {x: 36, y: 36}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &8453264213114378793
 CanvasRenderer:
