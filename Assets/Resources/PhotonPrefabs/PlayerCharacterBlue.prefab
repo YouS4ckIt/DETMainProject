@@ -1026,6 +1026,7 @@ MonoBehaviour:
   ThirdpersonplayerCam: {fileID: 2337085654676622356}
   ThirdpersonplayerCamObject: {fileID: 2315460393652062328}
   FPSCameraObject: {fileID: 2667554657157111281}
+  UICamera: {fileID: 6301886158365502573}
   creativeInventoryWindow: {fileID: 8594677331597640417}
   wardrobeWindow: {fileID: 802923595957743670}
   cursorSlot: {fileID: 7493355100172707740}

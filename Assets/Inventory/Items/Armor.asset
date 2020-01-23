@@ -15,7 +15,7 @@ MonoBehaviour:
   ItemName: Armor
   itemType: 3
   UIImage: {fileID: 5004528376394637462, guid: a013a9d95a59b491d844d9a6b99a313e, type: 3}
-  prefab: {fileID: 1515559701728358, guid: 2d10d9aa48563b345a68c8246f57876b, type: 3}
+  prefab: {fileID: 963090347116220484, guid: 4b3a51d73bbf95a46ba9c672be1a088f, type: 3}
   prefabAditional: {fileID: 0}
   blockType: 0
   durability: 0

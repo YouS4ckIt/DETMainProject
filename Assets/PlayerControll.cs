@@ -29,6 +29,7 @@ using Photon.Pun;
         [SerializeField] Camera ThirdpersonplayerCam;
         [SerializeField] GameObject ThirdpersonplayerCamObject;
         [SerializeField] GameObject FPSCameraObject;
+    [SerializeField] GameObject UICamera;
         Vector3 jumpVelocity = Vector3.zero;
         Vector3 moveInCameraSpace;
 
@@ -77,6 +78,7 @@ using Photon.Pun;
                 FPSCameraObject.SetActive(false);
                 FPSplayerCam.enabled = false;
                 ThirdpersonplayerCam.enabled = false;
+                UICamera.SetActive(false);
                 return;
             }
             animator = GetComponent<Animator>();
