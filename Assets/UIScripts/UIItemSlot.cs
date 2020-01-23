@@ -43,9 +43,12 @@ public class UIItemSlot : MonoBehaviour
         if (itemSlot != null && itemSlot.HasItem)
         {
             slotIcon.sprite = itemSlot.stack.item.UIImage;
-            slotAmount.text = itemSlot.stack.amount.ToString();
             slotIcon.enabled = true;
-            slotAmount.enabled = true;
+            if(itemSlot.stack.item.itemType == ItemTypes.Block)
+            {
+                slotAmount.text = itemSlot.stack.amount.ToString();
+                slotAmount.enabled = true;
+            }
         }
         else
             Clear();
@@ -133,6 +136,12 @@ public class ItemSlot
             return amount;
         }
             
+    }
+
+    public void Give(int amount)
+    {
+        stack.amount += amount;
+        uiItemSlot.UpdateSlot();
     }
 
     public ItemStack TakeAll()

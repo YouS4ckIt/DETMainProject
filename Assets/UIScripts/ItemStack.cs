@@ -12,4 +12,9 @@ public class ItemStack
         item = _item;
         amount = _amount;
     }
+
+    public ItemStack(Item _item)
+    {
+        item = _item;
+    }
 }

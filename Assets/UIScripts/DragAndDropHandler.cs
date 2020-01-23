@@ -68,6 +68,22 @@ public class DragAndDropHandler : MonoBehaviour
                 clickedSlot.itemSlot.InsertStack(oldCursorSlot);
                 cursorSlot.itemSlot.InsertStack(oldSlot);
             }
+            else if(cursorSlot.itemSlot.stack.item == clickedSlot.itemSlot.stack.item &&
+                clickedSlot.itemSlot.stack.item.itemType == ItemTypes.Block)
+            {
+                if(cursorSlot.itemSlot.stack.amount == 64 || clickedSlot.itemSlot.stack.amount == 64)
+                {
+                    ItemStack oldCursorSlot = cursorSlot.itemSlot.TakeAll();
+                    ItemStack oldSlot = clickedSlot.itemSlot.TakeAll();
+
+                    clickedSlot.itemSlot.InsertStack(oldCursorSlot);
+                    cursorSlot.itemSlot.InsertStack(oldSlot);
+                }
+                else if(clickedSlot.itemSlot.stack.amount < 64)
+                {
+                    clickedSlot.itemSlot.Give(cursorSlot.itemSlot.Take(64 - clickedSlot.itemSlot.stack.amount));
+                }
+            }
         }
     }
 
