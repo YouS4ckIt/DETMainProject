@@ -59,6 +59,7 @@ public class Wardrobe : MonoBehaviour
         {
             if (bodywearEquipped)
             {
+                Debug.Log("HHH" + bodywear.transform.childCount);
                 Destroy(bodywear.transform.GetChild(0).gameObject);
                 bodywearEquipped = false;
             }  
