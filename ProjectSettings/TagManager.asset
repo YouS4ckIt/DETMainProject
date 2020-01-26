@@ -15,6 +15,9 @@ TagManager:
   - Wood (Static)
   - Dirt (Static)
   - Blood
+  - UIItemSlot
+  - Bullet
+  - PhotonCharacter
   layers:
   - Default
   - TransparentFX

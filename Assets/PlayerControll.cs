@@ -7,13 +7,13 @@ using Photon.Pun;
         public float movementSpeed = 0.2f;
         public float rotationSpeed = 1f;
         public Transform cameraTransform;
-
         Animator animator;
         int animSpeedX;
         int animSpeedY;
         int animIsJumping;
-
-        CharacterController controller;
+    public int playerHealth = 100;
+    public int playerDamage = 25;
+    CharacterController controller;
 
         // Jump
         public float gravity = 30f;

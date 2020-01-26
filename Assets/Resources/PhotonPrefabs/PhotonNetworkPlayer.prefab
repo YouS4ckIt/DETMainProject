@@ -68,6 +68,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myAvatar: {fileID: 0}
+  playerHealthBasic: 100
+  playerDamageBasic: 25
 --- !u!114 &1449876499286713352
 MonoBehaviour:
   m_ObjectHideFlags: 0

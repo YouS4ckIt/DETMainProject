@@ -87,6 +87,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
         pivot.localRotation = pivotTargetRot;
         transform.localRotation = transformTargetRot;
+        
     }
 
 }
