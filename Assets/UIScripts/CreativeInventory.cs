@@ -10,7 +10,7 @@ public class CreativeInventory : MonoBehaviour
     List<ItemSlot> slots = new List<ItemSlot>();
     private void Start()
     {
-        for(int i = 1; i < 7; i++)
+        for(int i = 1; i < 26; i++)
         {
             GameObject newSlot = Instantiate(slotPrefab, transform);
 

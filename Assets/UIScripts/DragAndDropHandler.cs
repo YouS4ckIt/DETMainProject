@@ -29,9 +29,13 @@ public class DragAndDropHandler : MonoBehaviour
             return;
 
         cursorSlot.transform.position = Input.mousePosition;
-            
+        cursorSlot.transform.position -= new Vector3(15,0);
         if (Input.GetMouseButtonDown(0))
         {
+            if(CheckForSlot() != null)
+            {
+                Debug.Log("Slot Clicked");
+            }
             HandleSlotClick(CheckForSlot());
         }
     }
