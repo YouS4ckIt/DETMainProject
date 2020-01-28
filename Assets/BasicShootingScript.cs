@@ -45,7 +45,7 @@ public class BasicShootingScript : MonoBehaviour
             return;
         }
         laserLine = GetComponent<LineRenderer>();
-        effectToSpawn = VFXs[0];
+        effectToSpawn = VFXs[Random.Range(0,2)];
         playerSetup = GetComponent<PhotonPlayer>();
         gun = rightHand.GetComponentInChildren<Gun>();
        // StartUpdateRay();

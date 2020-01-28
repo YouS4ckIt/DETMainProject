@@ -29,7 +29,9 @@ using Photon.Pun;
         [SerializeField] Camera ThirdpersonplayerCam;
         [SerializeField] GameObject ThirdpersonplayerCamObject;
         [SerializeField] GameObject FPSCameraObject;
+    [SerializeField] GameObject renderer;
     [SerializeField] GameObject UICamera;
+    [SerializeField] MouseLook scriptfps;
         Vector3 jumpVelocity = Vector3.zero;
         Vector3 moveInCameraSpace;
 
@@ -75,7 +77,7 @@ using Photon.Pun;
             if (!PV.IsMine)
             {
                 ThirdpersonplayerCamObject.SetActive(false);
-                FPSCameraObject.SetActive(false);
+                //FPSCameraObject.SetActive(false);
                 FPSplayerCam.enabled = false;
                 ThirdpersonplayerCam.enabled = false;
                 UICamera.SetActive(false);
@@ -103,11 +105,12 @@ using Photon.Pun;
         {
             if (Input.GetKeyDown(KeyCode.N))
             {
-
+                renderer.SetActive(!thirdpersonCameraIsActive);
+                scriptfps.enabled = thirdpersonCameraIsActive;
                 thirdpersonCameraIsActive = !thirdpersonCameraIsActive;
                 Debug.Log("Thirdpersoncamera : " + thirdpersonCameraIsActive);
                 FPSplayerCam.enabled = !FPSplayerCam.enabled;
-                FPSCameraObject.SetActive(FPSplayerCam.enabled);
+                //FPSCameraObject.SetActive(FPSplayerCam.enabled);
                 Debug.Log("FPSCAMENABLED : " + FPSplayerCam.enabled);
                 ThirdpersonplayerCam.enabled = !ThirdpersonplayerCam.enabled;
 
