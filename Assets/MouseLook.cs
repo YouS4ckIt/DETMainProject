@@ -16,7 +16,7 @@ public class MouseLook : MonoBehaviour
     public Transform playerBody;
     float xRotation = 0f;
     private bool isCameraLocked;
-
+    [SerializeField] PlayerControll playerController;
     private void Start()
     {
         isCameraLocked = true;
@@ -24,19 +24,22 @@ public class MouseLook : MonoBehaviour
     }
     private void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * XSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * YSensitivity * Time.deltaTime;
-    
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        if (isCameraLocked)
+        if (playerController.inUI) { return; }
+        else
         {
-            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-            playerBody.Rotate(Vector3.up * mouseX);
+            float mouseX = Input.GetAxis("Mouse X") * XSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * YSensitivity * Time.deltaTime;
+
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            if (isCameraLocked)
+            {
+                transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+                playerBody.Rotate(Vector3.up * mouseX);
+            }
+            UpdateCursorLock();
+
         }
-        UpdateCursorLock();
-
-
     }
 
     public void SetCursorLock()

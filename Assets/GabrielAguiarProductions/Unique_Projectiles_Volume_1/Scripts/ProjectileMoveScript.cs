@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections.Generic;
-
+using static Block;
 public class ProjectileMoveScript : MonoBehaviour {
 
 	public float speed;
@@ -17,7 +17,7 @@ public class ProjectileMoveScript : MonoBehaviour {
 
 	private float speedRandomness;
 	private Vector3 offset;
-	private bool collided;
+	public bool collided;
 
 	void Start () {	
 
@@ -64,7 +64,9 @@ public class ProjectileMoveScript : MonoBehaviour {
 	}
 
 	void OnCollisionEnter (Collision co) {
-		if (co.gameObject.tag != "Bullet" && !collided) {
+       
+
+        if (co.gameObject.tag != "Bullet" && !collided) {
 			collided = true;
 			
 			if (shotSFX != null && GetComponent<AudioSource>()) {

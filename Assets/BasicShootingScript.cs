@@ -28,6 +28,7 @@ public class BasicShootingScript : MonoBehaviour
     PhotonView PV;
     Gun gun;
     public Transform rayOrigin;
+    [SerializeField] PlayerControll playerController;
 
     public float maximumLenght;
     private WaitForSeconds updateTime = new WaitForSeconds(0.01f);
@@ -37,6 +38,7 @@ public class BasicShootingScript : MonoBehaviour
     private Quaternion rotation;
     private Vector2 mousePos;
     private LineRenderer laserLine;
+    public GameObject FPScam;
     void Start()
     {
         PV = GetComponent<PhotonView>();
@@ -45,7 +47,7 @@ public class BasicShootingScript : MonoBehaviour
             return;
         }
         laserLine = GetComponent<LineRenderer>();
-        effectToSpawn = VFXs[Random.Range(0,2)];
+        effectToSpawn = VFXs[Random.Range(0,3)];
         playerSetup = GetComponent<PhotonPlayer>();
         gun = rightHand.GetComponentInChildren<Gun>();
        // StartUpdateRay();
@@ -61,51 +63,131 @@ public class BasicShootingScript : MonoBehaviour
         {
             return;
         }
-
-        if (Input.GetMouseButtonDown(0))
+        if (playerController.inUI) { return; }
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
-            Debug.Log("Normal Shot" + PV.IsMine);
-            //PV.RPC("RPC_shooting", RpcTarget.All);
-            /// 
-            Ray rayOrigin =new Ray(thirdPCamera.GetComponent<Camera>().transform.position, thirdPCamera.GetComponent<Camera>().transform.forward );
-            Vector3 origin = thirdPCamera.GetComponent<Camera>().transform.position;
-            Vector3 dir = (thirdPCamera.GetComponent<Camera>().transform.forward).normalized;
-            //laserLine.SetPosition(0, spawnPosition.position);
-            
-            RaycastHit hitInfo;
-            if(Physics.Raycast(rayOrigin,out hitInfo, 100))
+            if (Input.GetMouseButtonDown(0)) { PV.RPC("RPC_basicShooting", RpcTarget.All); }
+            if (Input.GetMouseButtonDown(1) && Time.time >= timeToFire) {
+                PV.RPC("RPC_abilityShooting", RpcTarget.All);
+                timeToFire = Time.time + 1f / effectToSpawn.GetComponent<ProjectileMoveScript>().fireRate;
+            }
+            RaycastHit hit;
+
+            //for mouse clicking
+            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
+            //if ( Physics.Raycast (ray,out hit,10)) 
+            //{
+
+            //for cross hairs
+            if (Physics.Raycast(FPScam.transform.position, FPScam.transform.forward, out hit, 20))
             {
-                Debug.DrawLine(spawnPosition.position, hitInfo.point, Color.white);
-                Debug.Log("WE SHOT");
-                //laserLine.SetPosition(1, hitInfo.point);
-                Vector3 mousePositionWorldSpace = thirdPCamera.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
-                mousePos = thirdPCamera.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - thirdPCamera.GetComponent<Camera>().transform.position.z));
-                Debug.Log("what we hit : " + hitInfo.collider.name);
+                Chunk hitc;
+                if (!World.chunks.TryGetValue(hit.collider.gameObject.name, out hitc)) return;
 
-
-                // Instantiate(bulletPrefab, spawnPosition.position, Quaternion.Euler(new Vector3(mousePositionWorldSpace.x-180f, 0f, mousePositionWorldSpace.z-90f)));
-                //PV.RPC("RPC_basicShooting", RpcTarget.All);
-
-                if (hitInfo.transform.tag == "PhotonCharacter")
+                Vector3 hitBlock;
+                if (Input.GetMouseButtonDown(0)|| Input.GetMouseButtonDown(1))
                 {
-                    Debug.Log("Did Hit");
-                    hitInfo.collider.GetComponent<PlayerControll>().playerHealth -= this.GetComponent<PlayerControll>().playerDamage;
-                    Debug.Log("HEALTHY : " + hitInfo.collider.GetComponent<PlayerControll>().playerHealth);
-                    
+                    Debug.Log("----" + hit.point + "----" + hit.normal);
+                    hitBlock = hit.point - hit.normal / 2.0f;
+                    Debug.Log("HITBLOCKER  .: " + hitBlock);
+                }
+                else
+                    hitBlock = hit.point + hit.normal / 2.0f;
+
+                int x = (int)(Mathf.Round(hitBlock.x) - hit.collider.gameObject.transform.position.x);
+                int y = (int)(Mathf.Round(hitBlock.y) - hit.collider.gameObject.transform.position.y);
+                int z = (int)(Mathf.Round(hitBlock.z) - hit.collider.gameObject.transform.position.z);
+
+                bool update = false;
+                
+                if (Input.GetMouseButtonDown(0)) {
+                   
+                    update = hitc.chunkData[x, y, z].HitBlock();
+                }
+               
+                   
+                    Debug.Log("Started Special Ability ");
+                   
+                   // SpawnVFX();
+                    update = hitc.chunkData[x, y, z].HitBlock();
+                
+                Debug.Log("OUR TYPE IS : " + hitc.chunkData[x, y, z].GetType());
+
+                if (update)
+                {
+                    hitc.changed = true;
+                    List<string> updates = new List<string>();
+                    float thisChunkx = hitc.chunk.transform.position.x;
+                    float thisChunky = hitc.chunk.transform.position.y;
+                    float thisChunkz = hitc.chunk.transform.position.z;
+
+                    //updates.Add(hit.collider.gameObject.name);
+
+                    //update neighbours?
+                    if (x == 0)
+                        updates.Add(World.BuildChunkName(new Vector3(thisChunkx - World.chunkSize, thisChunky, thisChunkz)));
+                    if (x == World.chunkSize - 1)
+                        updates.Add(World.BuildChunkName(new Vector3(thisChunkx + World.chunkSize, thisChunky, thisChunkz)));
+                    if (y == 0)
+                        updates.Add(World.BuildChunkName(new Vector3(thisChunkx, thisChunky - World.chunkSize, thisChunkz)));
+                    if (y == World.chunkSize - 1)
+                        updates.Add(World.BuildChunkName(new Vector3(thisChunkx, thisChunky + World.chunkSize, thisChunkz)));
+                    if (z == 0)
+                        updates.Add(World.BuildChunkName(new Vector3(thisChunkx, thisChunky, thisChunkz - World.chunkSize)));
+                    if (z == World.chunkSize - 1)
+                        updates.Add(World.BuildChunkName(new Vector3(thisChunkx, thisChunky, thisChunkz + World.chunkSize)));
+
+                    foreach (string cname in updates)
+                    {
+                        Chunk c;
+                        if (World.chunks.TryGetValue(cname, out c))
+                        {
+                            c.Redraw();
+                        }
+                    }
                 }
             }
-            else
-            {
-                Debug.DrawLine(ThirdPPosition.transform.position, thirdPCamera.GetComponent<Camera>().WorldToScreenPoint(ThirdPPosition.transform.position));
-                laserLine.SetPosition(0, spawnPosition.position);
-                Debug.Log(dir + "this is DIR:");
-                laserLine.SetPosition(1, (thirdPCamera.GetComponent<Camera>().transform.position- thirdPCamera.GetComponent<Camera>().transform.forward) * -1);
-                Debug.Log("WE SHOT");
-                Debug.Log("what we hit nothing : ");
-                Instantiate(bulletPrefab, spawnPosition.position, Quaternion.Euler(dir-origin));
-
-            }
         }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Debug.Log("Normal Shot" + PV.IsMine);
+        //    PV.RPC("RPC_basicShooting", RpcTarget.All);
+
+        //    Ray rayOrigin =new Ray(thirdPCamera.GetComponent<Camera>().transform.position, thirdPCamera.GetComponent<Camera>().transform.forward );
+        //    Vector3 origin = thirdPCamera.GetComponent<Camera>().transform.position;
+        //    Vector3 dir = (thirdPCamera.GetComponent<Camera>().transform.forward).normalized;
+
+        //    RaycastHit hitInfo;
+        //    if(Physics.Raycast(rayOrigin,out hitInfo, 100))
+        //    {
+        //        Debug.DrawLine(spawnPosition.position, hitInfo.point, Color.white);
+        //        Debug.Log("WE SHOT");
+        //        //laserLine.SetPosition(1, hitInfo.point);
+        //        Vector3 mousePositionWorldSpace = thirdPCamera.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
+        //        mousePos = thirdPCamera.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - thirdPCamera.GetComponent<Camera>().transform.position.z));
+        //        Debug.Log("what we hit : " + hitInfo.collider.name);
+
+
+        //        // Instantiate(bulletPrefab, spawnPosition.position, Quaternion.Euler(new Vector3(mousePositionWorldSpace.x-180f, 0f, mousePositionWorldSpace.z-90f)));
+        //        //PV.RPC("RPC_basicShooting", RpcTarget.All);
+
+        //        if (hitInfo.transform.tag == "PhotonCharacter")
+        //        {
+        //            Debug.Log("Did Hit");
+        //            hitInfo.collider.GetComponent<PlayerControll>().playerHealth -= this.GetComponent<PlayerControll>().playerDamage;
+        //            Debug.Log("HEALTHY : " + hitInfo.collider.GetComponent<PlayerControll>().playerHealth);
+
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Debug.DrawLine(ThirdPPosition.transform.position, thirdPCamera.GetComponent<Camera>().WorldToScreenPoint(ThirdPPosition.transform.position));
+        //        Debug.Log(dir + "this is DIR:");
+        //        Debug.Log("what we hit nothing : ");
+        //       // Instantiate(bulletPrefab, spawnPosition.position, Quaternion.Euler(dir-origin));
+
+        //    }
+        //}
         if (Input.GetMouseButtonDown(1) && Time.time >= timeToFire)
         {
             Debug.Log("Started Special Ability ");
@@ -128,10 +210,22 @@ public class BasicShootingScript : MonoBehaviour
                 var ps = vfx.transform.GetChild(0).GetComponent<ParticleSystem>();
             }
         }
-
-       
     }
-
+    [PunRPC]
+    void RPC_abilityShooting()
+    {
+        GameObject vfx;
+        if (firePoint != null)
+        {
+            vfx = Instantiate(effectToSpawn, spawnPosition.position, spawnPosition.rotation);
+            //vfx.transform.localRotation = this.rotation;
+            vfx.AddComponent<Destroyer10S>();
+            if (vfx.transform.childCount > 0)
+            {
+                var ps = vfx.transform.GetChild(0).GetComponent<ParticleSystem>();
+            }
+        }
+    }
     IEnumerator UpdateRay()
     {
         if (thirdPCamera != null)
@@ -166,10 +260,6 @@ public class BasicShootingScript : MonoBehaviour
         obj.transform.localRotation = Quaternion.Lerp(obj.transform.rotation, rotation, 1);
     }
 
-    void DoAttack()
-    {
-        gun.Shoot();
-    }
     [PunRPC]
     void RPC_basicShooting()
     {
@@ -198,17 +288,5 @@ public class BasicShootingScript : MonoBehaviour
 
 
 
-    //void Update()
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        DoAttack();
-    //    }
-    //}
-
-    //void DoAttack()
-    //{
-    //    gun.Shoot();
-    //}
-
+  
 }

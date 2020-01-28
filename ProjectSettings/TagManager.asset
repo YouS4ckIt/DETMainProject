@@ -18,6 +18,7 @@ TagManager:
   - UIItemSlot
   - Bullet
   - PhotonCharacter
+  - World
   layers:
   - Default
   - TransparentFX

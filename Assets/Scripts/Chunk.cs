@@ -48,34 +48,34 @@ public class Chunk
 
     bool Load() //read data from file
     {
-        string chunkFile = BuildChunkFileName(chunk.transform.position);
-        if (File.Exists(chunkFile))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(chunkFile, FileMode.Open);
-            bd = new BlockData();
-            bd = (BlockData)bf.Deserialize(file);
-            file.Close();
-            Debug.Log("Loading chunk from file: " + chunkFile);
-            return true;
-        }
+        //string chunkFile = BuildChunkFileName(chunk.transform.position);
+        //if (File.Exists(chunkFile))
+        //{
+        //    BinaryFormatter bf = new BinaryFormatter();
+        //    FileStream file = File.Open(chunkFile, FileMode.Open);
+        //    bd = new BlockData();
+        //    bd = (BlockData)bf.Deserialize(file);
+        //    file.Close();
+        //    Debug.Log("Loading chunk from file: " + chunkFile);
+        //    return true;
+        //}
         return false;
     }
 
     public void Save() //write data to file
     {
-        string chunkFile = BuildChunkFileName(chunk.transform.position);
+        //string chunkFile = BuildChunkFileName(chunk.transform.position);
 
-        if (!File.Exists(chunkFile))
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(chunkFile));
-        }
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(chunkFile, FileMode.OpenOrCreate);
-        bd = new BlockData(chunkData);
-        bf.Serialize(file, bd);
-        file.Close();
-        Debug.Log("Saving chunk from file: " + chunkFile);
+        //if (!File.Exists(chunkFile))
+        //{
+        //    Directory.CreateDirectory(Path.GetDirectoryName(chunkFile));
+        //}
+        //BinaryFormatter bf = new BinaryFormatter();
+        //FileStream file = File.Open(chunkFile, FileMode.OpenOrCreate);
+        //bd = new BlockData(chunkData);
+        //bf.Serialize(file, bd);
+        //file.Close();
+        //Debug.Log("Saving chunk from file: " + chunkFile);
     }
 
     void BuildChunk()

@@ -20,7 +20,7 @@ public class Block
 
     public BlockType health;
     int currentHealth;
-    int[] blockHealthMax = { 3, 3, 4, -1, 4, 4, 0, 0, 0, 0, 0, 0 };
+    int[] blockHealthMax = { 1,1, 1, -1, 1, 1, 0, 0, 0, 0, 0, 0 };
 
     Vector2[,] blockUVs = { 
 		/*GRASS TOP*/		{new Vector2( 0.125f, 0.375f ), new Vector2( 0.1875f, 0.375f),

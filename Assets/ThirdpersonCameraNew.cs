@@ -11,13 +11,16 @@ public class ThirdpersonCameraNew : MonoBehaviour
     float rotationY = 0f;
     float mouseX, mouseY;
     [SerializeField] public Transform Target, Player;
+    Vector3 offset;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
     void Start()
     {
-        
+        offset = transform.position - Target.transform.position;
+
     }
 
     // Update is called once per frame
@@ -30,7 +33,8 @@ public class ThirdpersonCameraNew : MonoBehaviour
     }
     private void LateUpdate()
     {
-       
+        Vector3 desiredPosition = Target.transform.position + offset;
+        transform.position = desiredPosition;
     }
     public void HandleRotationMovement()
     {
